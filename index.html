@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회사 소개 - Example Company</title>
+  <style>
+    /* 기본 리셋 및 전역 스타일 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background: #f5f5f5;
+    }
+
+    /* 고정 헤더 및 네비게이션 */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #333;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+    nav ul li {
+      margin-left: 1.5rem;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #e67e22;
+    }
+    
+    /* Hero 섹션 */
+    .hero {
+      height: 100vh;
+      margin-top: 70px; /* 헤더 높이 만큼 여백 추가 */
+      background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top:0;
+      left:0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero h1 {
+      position: relative;
+      font-size: 3rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      z-index: 1;
+    }
+    .hero p {
+      position: relative;
+      font-size: 1.3rem;
+      color: #fff;
+      z-index: 1;
+    }
+    
+    /* 섹션 공통 컨테이너 */
+    .section-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+    
+    /* About 섹션 */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      background: #fff;
+      padding: 40px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+    .about img {
+      flex: 1 1 500px;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+    .about .content {
+      flex: 1 1 500px;
+    }
+    .about .content h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .about .content p {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    
+    /* Services 섹션 */
+    .services {
+      background: #fff;
+      padding: 40px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+    .services h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+    .services .service-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .services .service {
+      flex: 1 1 300px;
+      text-align: center;
+      margin: 20px;
+    }
+    .services .service img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+    .services .service h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .services .service p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    
+    /* Team 섹션 */
+    .team {
+      background: #f9f9f9;
+      padding: 40px 20px;
+      margin-bottom: 40px;
+    }
+    .team h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+    .team .team-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .team .member {
+      flex: 1 1 250px;
+      text-align: center;
+      margin: 20px;
+    }
+    .team .member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+    .team .member h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .team .member p {
+      font-size: 0.95rem;
+      color: #777;
+    }
+    
+    /* Contact 섹션 */
+    .contact {
+      background: #fff;
+      padding: 40px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+    .contact h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+    .contact form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact form input, .contact form textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .contact form button {
+      padding: 10px;
+      border: none;
+      background: #333;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .contact form button:hover {
+      background: #e67e22;
+    }
+    
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 0.9rem;
+    }
+    
+    /* 반응형 디자인 */
+    @media (max-width: 768px) {
+      .about {
+        flex-direction: column;
+      }
+      .about img {
+        margin: 0 0 20px 0;
+      }
+      nav ul {
+        flex-direction: column;
+      }
+      nav ul li {
+        margin: 10px 0;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 네비게이션 -->
+  <header>
+    <nav class="section-container">
+      <div class="logo">CompanyName</div>
+      <ul>
+        <li><a href="#about">회사소개</a></li>
+        <li><a href="#services">서비스</a></li>
+        <li><a href="#team">팀</a></li>
+        <li><a href="#contact">문의</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero 섹션 -->
+  <section class="hero">
+    <div>
+      <h1>혁신과 열정을 담은 서비스</h1>
+      <p>우리는 고객과 함께 더 나은 미래를 만듭니다.</p>
+    </div>
+  </section>
+
+  <!-- 회사 소개 (About) 섹션 -->
+  <section id="about" class="section-container about">
+    <img src="https://via.placeholder.com/500x400" alt="회사 이미지">
+    <div class="content">
+      <h2>회사 소개</h2>
+      <p>
+        당사는 최신 기술과 창의적인 아이디어로 고객의 니즈를 충족시키며, 시장의 변화를 선도하는 혁신적인 솔루션을 제공합니다. 전문적인 팀과 체계적인 서비스로 신뢰받는 파트너가 되겠습니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- 서비스 (Services) 섹션 -->
+  <section id="services" class="section-container services">
+    <h2>서비스</h2>
+    <div class="service-list">
+      <div class="service">
+        <img src="https://via.placeholder.com/80" alt="서비스 아이콘">
+        <h3>모바일 앱 개발</h3>
+        <p>최신 기술을 활용한 iOS 및 Android 앱 개발</p>
+      </div>
+      <div class="service">
+        <img src="https://via.placeholder.com/80" alt="서비스 아이콘">
+        <h3>웹 개발</h3>
+        <p>반응형 웹사이트와 효율적인 백엔드 솔루션</p>
+      </div>
+      <div class="service">
+        <img src="https://via.placeholder.com/80" alt="서비스 아이콘">
+        <h3>UI/UX 디자인</h3>
+        <p>사용자 경험을 고려한 창의적인 디자인 제공</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 팀 (Team) 섹션 -->
+  <section id="team" class="section-container team">
+    <h2>팀 소개</h2>
+    <div class="team-list">
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="팀원 사진">
+        <h4>홍길동</h4>
+        <p>개발자</p>
+      </div>
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="팀원 사진">
+        <h4>김철수</h4>
+        <p>디자이너</p>
+      </div>
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="팀원 사진">
+        <h4>박영희</h4>
+        <p>프로젝트 매니저</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 문의 (Contact) 섹션 -->
+  <section id="contact" class="section-container contact">
+    <h2>문의하기</h2>
+    <form onsubmit="event.preventDefault(); alert('문의가 접수되었습니다.');">
+      <input type="text" name="name" placeholder="이름" required>
+      <input type="email" name="email" placeholder="이메일" required>
+      <textarea name="message" rows="5" placeholder="문의 내용" required></textarea>
+      <button type="submit">보내기</button>
+    </form>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>&copy; 2025 CompanyName. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
