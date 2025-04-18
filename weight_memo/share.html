@@ -25,6 +25,10 @@
     document.title = messages[lang].title;
 
     function redirectToStore() {
+
+      const messageEl = document.getElementById('message');
+      if (!messageEl) return;
+
       const ua = navigator.userAgent || navigator.vendor || window.opera;
 
       // Android
