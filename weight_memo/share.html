@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>앱으로 이동 중...</title>
+  <script>
+    function redirectToStore() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+      // Android
+      if (/android/i.test(ua)) {
+        window.location.href = "https://play.google.com/store/apps/details?id=com.unidev.weight_memo";
+        return;
+      }
+      // iOS (iPhone, iPad, iPod)
+      if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        window.location.href = "https://apps.apple.com/kr/app/id1234567890";
+        return;
+      }
+      // 그 외 (웹, PC 등) → 안내 문구
+      document.getElementById('message').innerText =
+        "모바일 디바이스에서 접속해 주세요.";
+    }
+
+    window.onload = redirectToStore;
+  </script>
+</head>
+<body>
+  <p id="message">앱 스토어로 이동 중입니다…</p>
+</body>
+</html>
