@@ -2,24 +2,45 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>앱으로 이동 중...</title>
+  <title>체중메모 앱 다운로드</title>
   <script>
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('lang') === 'en' ? 'en' : 'ko';
+
+    // 2) 언어별 메시지 및 title 정의
+    const messages = {
+      ko: {
+        title:   '체중메모 앱 다운로드',
+        redirecting: '앱 스토어로 이동 중입니다…',
+        fallback:    '모바일 디바이스에서 접속해 주세요.'
+      },
+      en: {
+        title:   'Download WeightMemo App',
+        redirecting: 'Redirecting to the app store…',
+        fallback:    'Please access from a mobile device.'
+      }
+    };
+
+    // 3) 언어에 맞춰 document.title 변경
+    document.title = messages[lang].title;
+
     function redirectToStore() {
       const ua = navigator.userAgent || navigator.vendor || window.opera;
 
       // Android
       if (/android/i.test(ua)) {
+        messageEl.innerText = messages[lang].redirecting;
         window.location.href = "https://play.google.com/store/apps/details?id=com.unidev.weight_memo";
         return;
       }
       // iOS (iPhone, iPad, iPod)
       if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        messageEl.innerText = messages[lang].redirecting;
         window.location.href = "https://apps.apple.com/kr/app/id1234567890";
         return;
       }
       // 그 외 (웹, PC 등) → 안내 문구
-      document.getElementById('message').innerText =
-        "모바일 디바이스에서 접속해 주세요.";
+      messageEl.innerText = messages[lang].fallback;
     }
 
     window.onload = redirectToStore;
